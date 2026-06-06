@@ -112,6 +112,34 @@ class DashboardController extends Controller
 
 public function pemetaan()
 {
-    return view('pemetaan.index');
+    $kabupaten = DB::table('kabupaten')->get();
+
+    $sekolah = DB::table('perpustakaan_sekolah')
+        ->selectRaw('id_kabupaten, COUNT(*) as total')
+        ->groupBy('id_kabupaten')
+        ->pluck('total', 'id_kabupaten');
+
+    $desa = DB::table('perpustakaan_desa')
+        ->selectRaw('id_kabupaten, COUNT(*) as total')
+        ->groupBy('id_kabupaten')
+        ->pluck('total', 'id_kabupaten');
+
+    $khusus = DB::table('perpustakaan_khusus')
+        ->selectRaw('id_kabupaten, COUNT(*) as total')
+        ->groupBy('id_kabupaten')
+        ->pluck('total', 'id_kabupaten');
+
+    $komunitas = DB::table('perpustakaan_komunitas')
+        ->selectRaw('id_kabupaten, COUNT(*) as total')
+        ->groupBy('id_kabupaten')
+        ->pluck('total', 'id_kabupaten');
+
+    return view('pemetaan.index', compact(
+        'kabupaten',
+        'sekolah',
+        'desa',
+        'khusus',
+        'komunitas'
+    ));
 }
 }

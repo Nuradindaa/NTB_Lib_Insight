@@ -1,0 +1,98 @@
+{"type":"FeatureCollection", "features": [
+{
+  "type": "FeatureCollection",
+  "name": "Kabupaten_Kota_NTB_2026",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5201",
+        "KAB_KOTA": "Lombok Barat",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Lombok Barat */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5202",
+        "KAB_KOTA": "Lombok Tengah",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Lombok Tengah */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5203",
+        "KAB_KOTA": "Lombok Timur",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Lombok Timur */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5204",
+        "KAB_KOTA": "Sumbawa",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Sumbawa */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5205",
+        "KAB_KOTA": "Dompu",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Dompu */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5206",
+        "KAB_KOTA": "Bima",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Bima */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5207",
+        "KAB_KOTA": "Sumbawa Barat",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Sumbawa Barat */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5208",
+        "KAB_KOTA": "Lombok Utara",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Lombok Utara */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5271",
+        "KAB_KOTA": "Kota Mataram",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Kota Mataram */ ] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "KODE_KAB": "5272",
+        "KAB_KOTA": "Kota Bima",
+        "PROVINSI": "Nusa Tenggara Barat"
+      },
+      "geometry": { "type": "MultiPolygon", "coordinates": [ /* Koordinat Kota Bima */ ] }
+    }
+  ]
+}
+]}
