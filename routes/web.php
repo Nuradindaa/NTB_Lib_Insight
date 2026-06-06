@@ -24,6 +24,11 @@ Route::get('/', [DashboardController::class, 'ringkasan'])
 
 Route::get('/dashboard-akreditasi', [DashboardController::class, 'index'])
     ->name('dashboard.akreditasi');
+Route::get(
+    '/reakreditasi/expired',[DashboardController::class, 'expired'])
+    ->name('reakreditasi.expired');
+Route::get('/reakreditasi/berlaku', [DashboardController::class, 'berlaku'])
+    ->name('reakreditasi.berlaku');
 
 /*
 | Dashboard Pemetaan
