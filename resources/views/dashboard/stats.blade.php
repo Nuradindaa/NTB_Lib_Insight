@@ -29,7 +29,7 @@
                 </p>
 
                 <h2 class="text-5xl font-bold text-green-600 mt-2">
-                    {{ $data->count() }}
+                    {{ number_format($totalAkreditasi) }}
                 </h2>
             </div>
 

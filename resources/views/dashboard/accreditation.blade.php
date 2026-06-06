@@ -1,4 +1,4 @@
-<div class="bg-red-100 p-6 rounded-2xl">
+<div class="bg-white p-6 rounded-2xl">
 
     <h3 class="text-2xl font-bold mb-6">
         ⚠ Monitoring Reakreditasi

@@ -24,12 +24,17 @@ class DashboardController extends Controller
             $totalKhusus;
 
         $filterKabupaten = $request->kabupaten;
+        $filterJenis = $request->jenis;
         $filterAkreditasi = $request->akreditasi;
 
         $statQuery = AkreditasiPerpustakaan::query();
 
         if ($filterKabupaten) {
             $statQuery->where('id_kabupaten', $filterKabupaten);
+        }
+
+        if ($filterJenis) {
+            $statQuery->where('id_jenis', $filterJenis);
         }
 
         $akreditasiA = (clone $statQuery)
@@ -50,11 +55,15 @@ class DashboardController extends Controller
             $query->where('id_kabupaten', $filterKabupaten);
         }
 
+        if ($filterJenis) {
+            $query->where('id_jenis', $filterJenis);
+        }
+
         if ($filterAkreditasi) {
             $query->where('nilai_akreditasi', $filterAkreditasi);
         }
 
-        $data = $query->limit(20)->get();
+        $data = $query->get();
 
         $kabupaten = Kabupaten::orderBy('nama_kabupaten')->get();
 
@@ -74,18 +83,16 @@ class DashboardController extends Controller
         ->orderByDesc('total')
         ->get();
 
-        $expired = AkreditasiPerpustakaan::where('status', 'exp')
-            ->count();
+        $expired = AkreditasiPerpustakaan::where('status', 'exp')->count();
 
-        $berlaku = AkreditasiPerpustakaan::where('status', 'Berlaku')
-            ->count();
+        $berlaku = AkreditasiPerpustakaan::where('status', 'Berlaku')->count();
 
-        $totalAkreditasi = AkreditasiPerpustakaan::count();
         $akanExpired = AkreditasiPerpustakaan::where(
             'tahun_berakhir',
             date('Y') + 1
-            )->count();
+        )->count();
 
+        $totalAkreditasi = AkreditasiPerpustakaan::count();
 
         return view(
             'dashboard.index',

@@ -1,6 +1,6 @@
 <div class="section-card mt-6">
 
-    <div class="section-header">
+    <div class="section-header font-bold bg-green-200">
         📚 Data Akreditasi Perpustakaan
     </div>
 
