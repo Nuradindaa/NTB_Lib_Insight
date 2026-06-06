@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PengajuanAkunController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])
     ->name('login');
@@ -17,6 +18,20 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/', [DashboardController::class, 'ringkasan'])
     ->name('dashboard.ringkasan');
+Route::get(
+    '/pengajuan-akun',
+    [PengajuanAkunController::class, 'create']
+)->name('pengajuan.create');
+
+Route::post(
+    '/pengajuan-akun',
+    [PengajuanAkunController::class, 'store']
+)->name('pengajuan.store');
+
+Route::get(
+    '/admin/pengajuan-akun',
+    [PengajuanAkunController::class, 'index']
+)->name('pengajuan.index');
 
 /*
 | Dashboard Akreditasi
