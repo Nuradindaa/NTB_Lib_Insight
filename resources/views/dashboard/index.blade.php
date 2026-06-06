@@ -13,10 +13,14 @@
     <div class="mt-8">
         @include('dashboard.filters')
     </div>
-
+    
     {{-- GRAFIK --}}
-    <div class="mt-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+
         @include('dashboard.chart')
+
+        @include('dashboard.chart-kabupaten')
+
     </div>
 
     {{-- STATUS --}}
@@ -28,6 +32,7 @@
     <div class="mt-8">
         @include('dashboard.table')
     </div>
+
 
 </div>
 

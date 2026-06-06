@@ -13,11 +13,8 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $totalSekolah = DB::table('perpustakaan_sekolah')->count();
-
         $totalDesa = DB::table('perpustakaan_desa')->count();
-
         $totalKomunitas = DB::table('perpustakaan_komunitas')->count();
-
         $totalKhusus = DB::table('perpustakaan_khusus')->count();
 
         $total =
@@ -46,7 +43,7 @@ class DashboardController extends Controller
         $akreditasiC = (clone $statQuery)
             ->where('nilai_akreditasi', 'C')
             ->count();
-            
+
         $query = AkreditasiPerpustakaan::query();
 
         if ($filterKabupaten) {
@@ -58,60 +55,114 @@ class DashboardController extends Controller
         }
 
         $data = $query->limit(20)->get();
+
         $kabupaten = Kabupaten::orderBy('nama_kabupaten')->get();
+
         $jenis = JenisPerpustakaan::orderBy('nama_jenis')->get();
-        
+
+        $chartKabupaten = AkreditasiPerpustakaan::selectRaw("
+            kabupaten.nama_kabupaten,
+            COUNT(*) as total
+        ")
+        ->join(
+            'kabupaten',
+            'akreditasi_perpustakaan.id_kabupaten',
+            '=',
+            'kabupaten.id_kabupaten'
+        )
+        ->groupBy('kabupaten.nama_kabupaten')
+        ->orderByDesc('total')
+        ->get();
+
+        $expired = AkreditasiPerpustakaan::where('status', 'exp')
+            ->count();
+
+        $berlaku = AkreditasiPerpustakaan::where('status', 'Berlaku')
+            ->count();
+
+        $totalAkreditasi = AkreditasiPerpustakaan::count();
+        $akanExpired = AkreditasiPerpustakaan::where(
+            'tahun_berakhir',
+            date('Y') + 1
+            )->count();
+
+
         return view(
             'dashboard.index',
             compact(
                 'total',
+                'totalAkreditasi',
                 'akreditasiA',
                 'akreditasiB',
                 'akreditasiC',
+                'expired',
+                'berlaku',
                 'data',
                 'kabupaten',
-                'jenis'
+                'jenis',
+                'chartKabupaten'
             )
         );
     }
+    public function expired()
+    {
+        $data = AkreditasiPerpustakaan::where('status', 'exp')
+            ->orderBy('tahun_berakhir')
+            ->get();
+
+        return view(
+            'dashboard.expired',
+            compact('data')
+        );
+    }
+
+    public function berlaku()
+    {
+        $data = AkreditasiPerpustakaan::where('status', 'Berlaku')
+            ->orderByDesc('tahun_berakhir')
+            ->get();
+
+        return view(
+            'dashboard.berlaku',
+            compact('data')
+        );
+    }
     public function ringkasan()
-{
-    $totalSekolah = DB::table('perpustakaan_sekolah')->count();
+    {
+        $totalSekolah = DB::table('perpustakaan_sekolah')->count();
 
-    $totalDesa = DB::table('perpustakaan_desa')->count();
+        $totalDesa = DB::table('perpustakaan_desa')->count();
 
-    $totalKomunitas = DB::table('perpustakaan_komunitas')->count();
+        $totalKomunitas = DB::table('perpustakaan_komunitas')->count();
 
-    $totalKhusus = DB::table('perpustakaan_khusus')->count();
+        $totalKhusus = DB::table('perpustakaan_khusus')->count();
 
-    $totalPerpustakaan =
-        $totalSekolah +
-        $totalDesa +
-        $totalKomunitas +
-        $totalKhusus;
+        $totalPerpustakaan =
+            $totalSekolah +
+            $totalDesa +
+            $totalKomunitas +
+            $totalKhusus;
 
-    $totalAkreditasi =
-        AkreditasiPerpustakaan::count();
+        $totalAkreditasi = AkreditasiPerpustakaan::count();
 
-    $jumlahKabupaten =
-        Kabupaten::count();
+        $jumlahKabupaten = Kabupaten::count();
 
-    return view(
-        'ringkasan.index',
-        compact(
-            'totalPerpustakaan',
-            'totalAkreditasi',
-            'jumlahKabupaten',
-            'totalSekolah',
-            'totalDesa',
-            'totalKomunitas',
-            'totalKhusus'
-        )
-    );
-}
+        return view(
+            'ringkasan.index',
+            compact(
+                'totalPerpustakaan',
+                'totalAkreditasi',
+                'jumlahKabupaten',
+                'totalSekolah',
+                'totalDesa',
+                'totalKomunitas',
+                'totalKhusus'
+            )
+        );
+    }
 
-public function pemetaan()
-{
-    return view('pemetaan.index');
-}
+    public function pemetaan()
+    {
+        return view('pemetaan.index');
+    }
 }

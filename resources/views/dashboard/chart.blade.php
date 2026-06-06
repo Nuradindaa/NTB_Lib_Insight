@@ -18,12 +18,19 @@ new Chart(ctx, {
     data: {
         labels: ['Akreditasi A', 'Akreditasi B', 'Akreditasi C'],
         datasets: [{
+            label: 'Jumlah Perpustakaan',
             data: [
                 {{ $akreditasiA }},
                 {{ $akreditasiB }},
                 {{ $akreditasiC }}
-            ]
-        }]
+            ],
+                backgroundColor: [
+                    '#3b82f6',
+                    '#10b981',
+                    '#f59e0b'
+                ],
+                borderRadius: 10
+            }]
     }
 });
 </script>
