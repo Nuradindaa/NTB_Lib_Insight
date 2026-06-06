@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanAkunController;
+use App\Models\PerpustakaanSekolah;
+
 
 Route::get('/login', [AuthController::class, 'showLogin'])
     ->name('login');
@@ -11,6 +13,23 @@ Route::get('/login', [AuthController::class, 'showLogin'])
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout']);
+
+
+/*admin*/
+Route::middleware('auth')->group(function () {
+
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+});
+Route::get('/admin/perpustakaan', function () {
+
+    $data = PerpustakaanSekolah::paginate(20);
+
+    return view('admin.perpustakaan.index', compact('data'));
+
+})->middleware('auth');
 
 /*
 | Dashboard Ringkasan

@@ -3,12 +3,19 @@
 @section('content')
 
 @include('components.navbar')
-<a href="{{ route('pengajuan.create') }}"
+@auth
+<a href="/admin/pengajuan-akun"
    class="bg-orange-500 text-white px-6 py-3 rounded-xl">
-
-   Ajukan Akun Pengelola
-
+    Kelola Pengajuan Akun
 </a>
+@endauth
+
+@guest
+<a href="/pengajuan-akun"
+   class="bg-orange-500 text-white px-6 py-3 rounded-xl">
+    Ajukan Akun Pengelola
+</a>
+@endguest
 
 <div class="max-w-7xl mx-auto p-6">
 

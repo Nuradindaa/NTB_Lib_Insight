@@ -20,11 +20,17 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
 
-            return redirect('/');
-        }
+            if (Auth::user()->role == 'admin') {
+                return redirect('/');
+            }
 
+            if (Auth::user()->role == 'perpus') {
+                return redirect('/perpus');
+            }
+        }
         return back()->withErrors([
             'email' => 'Email atau password salah',
         ]);
