@@ -185,12 +185,107 @@ class DashboardController extends Controller
             ->groupBy('id_kabupaten')
             ->pluck('total', 'id_kabupaten');
 
-        return view('pemetaan.index', compact(
+        $koordinat = [
+            [
+                'id' => 1,
+                'nama' => 'Kota Mataram',
+                'lat' => -8.5833,
+                'lng' => 116.1167
+            ],
+            [
+                'id' => 8,
+                'nama' => 'Kabupaten Lombok Barat',
+                'lat' => -8.6853,
+                'lng' => 116.1368
+            ],
+            [
+                'id' => 7,
+                'nama' => 'Kabupaten Lombok Tengah',
+                'lat' => -8.7058,
+                'lng' => 116.2751
+            ],
+            [
+                'id' => 6,
+                'nama' => 'Kabupaten Lombok Timur',
+                'lat' => -8.6366,
+                'lng' => 116.5298
+            ],
+            [
+                'id' => 5,
+                'nama' => 'Kabupaten Lombok Utara',
+                'lat' => -8.3414,
+                'lng' => 116.2415
+            ],
+            [
+                'id' => 3,
+                'nama' => 'Kabupaten Sumbawa Barat',
+                'lat' => -8.7617,
+                'lng' => 116.9217
+            ],
+            [
+                'id' => 4,
+                'nama' => 'Kabupaten Sumbawa',
+                'lat' => -8.6653,
+                'lng' => 117.4950
+            ],
+            [
+                'id' => 9,
+                'nama' => 'Kabupaten Dompu',
+                'lat' => -8.5333,
+                'lng' => 118.2333
+            ],
+            [
+                'id' => 10,
+                'nama' => 'Kabupaten Bima',
+                'lat' => -8.5286,
+                'lng' => 118.7107
+            ],
+            [
+                'id' => 2,
+                'nama' => 'Kota Bima',
+                'lat' => -8.4552,
+                'lng' => 118.7275
+            ]
+        ];
+
+        $totalSekolah = DB::table('perpustakaan_sekolah')->count();
+
+        $totalDesa = DB::table('perpustakaan_desa')->count();
+
+        $totalKhusus = DB::table('perpustakaan_khusus')->count();
+
+        $totalKomunitas = DB::table('perpustakaan_komunitas')->count();
+
+        $totalPerpustakaan =
+            $totalSekolah +
+            $totalDesa +
+            $totalKhusus +
+            $totalKomunitas;
+
+        return view('pemetaan.index', 
+        compact(
             'kabupaten',
             'sekolah',
             'desa',
             'khusus',
-            'komunitas'
+            'komunitas',
+            'koordinat',
+
+            'totalSekolah',
+            'totalDesa',
+            'totalKhusus',
+            'totalKomunitas',
+            'totalPerpustakaan'
         ));
+    }
+
+    public function perpustakaanSekolah()
+    {
+        $data = DB::table('perpustakaan_sekolah')->get();
+
+        return view(
+            'pemetaan.perpustakaan_sekolah',
+            compact('data')
+        );
     }
 }

@@ -42,3 +42,8 @@ Route::middleware('auth')->group(function () {
     // nanti route tambah/edit/hapus disini
 
 });
+
+Route::get(
+    '/perpustakaan-sekolah',
+    [DashboardController::class, 'perpustakaanSekolah']
+)->name('perpustakaan.sekolah');
