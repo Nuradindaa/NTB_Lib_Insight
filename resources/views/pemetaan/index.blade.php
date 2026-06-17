@@ -9,7 +9,7 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <div class="max-w-7xl mx-auto p-6">
 
-    <h1 class="text-4xl font-bold text-white">
+    <h1 class="text-4xl font-bold text-black">
         Dashboard Pemetaan Persebaran Perpustakaan NTB
     </h1>
 
@@ -30,29 +30,37 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
             <h2 class="text-3xl font-bold">
                 {{ number_format($totalSekolah) }}
             </h2>
-
         </a>
 
-        <div class="bg-yellow-500 text-white p-4 rounded-xl shadow">
+        <a href="{{ route('perpustakaan.desa') }}"
+            class="bg-yellow-500 text-white p-4 rounded-xl shadow block">
+
             <p>Desa</p>
+
             <h2 class="text-3xl font-bold">
                 {{ number_format($totalDesa) }}
             </h2>
-        </div>
+        </a>
 
-        <div class="bg-purple-500 text-white p-4 rounded-xl shadow">
+        <a href="{{ route('perpustakaan.khusus') }}"
+            class="bg-purple-500 text-white p-4 rounded-xl shadow block">
+
             <p>Khusus</p>
+
             <h2 class="text-3xl font-bold">
                 {{ number_format($totalKhusus) }}
             </h2>
-        </div>
+        </a>
 
-        <div class="bg-pink-500 text-white p-4 rounded-xl shadow">
+        <a href="{{ route('perpustakaan.komunitas') }}"
+            class="bg-red-500 text-white p-4 rounded-xl shadow block">
+
             <p>Komunitas</p>
+
             <h2 class="text-3xl font-bold">
                 {{ number_format($totalKomunitas) }}
             </h2>
-        </div>
+        </a>
 
     </div>
 

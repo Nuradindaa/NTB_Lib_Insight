@@ -81,3 +81,18 @@ Route::get(
     '/perpustakaan-sekolah',
     [DashboardController::class, 'perpustakaanSekolah']
 )->name('perpustakaan.sekolah');
+
+Route::get(
+    '/perpustakaan-desa',
+    [DashboardController::class,'perpustakaanDesa']
+)->name('perpustakaan.desa');
+
+Route::get(
+    '/perpustakaan-khusus',
+    [DashboardController::class,'perpustakaanKhusus']
+)->name('perpustakaan.khusus');
+
+Route::get(
+    '/perpustakaan-komunitas',
+    [DashboardController::class,'perpustakaanKomunitas']
+)->name('perpustakaan.komunitas');

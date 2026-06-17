@@ -5,7 +5,7 @@
 <div class="bg-white rounded-2xl shadow p-6 mb-6">
 
     <h1 class="text-3xl font-bold text-gray-800">
-        📚 Data Perpustakaan Sekolah
+        📚 Data Perpustakaan Komunitas
     </h1>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
@@ -22,7 +22,7 @@
         </a>
 
         <form method="GET"
-            action="{{ url('/perpustakaan-sekolah') }}"
+            action="{{ url('/perpustakaan-komunitas') }}"
             class="flex gap-2 w-1/2">
 
              <input
@@ -40,7 +40,7 @@
 
             </button>
 
-            <a href="{{ url('/perpustakaan-sekolah') }}"
+            <a href="{{ url('/perpustakaan-komunitas') }}"
             class="bg-gray-500 hover:bg-gray-600 text-white px-5 py-2 rounded-lg">
 
                 Reset

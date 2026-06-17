@@ -286,13 +286,67 @@ class DashboardController extends Controller
         ));
     }
 
-    public function perpustakaanSekolah()
+    public function perpustakaanSekolah(Request $request)
     {
-        $data = DB::table('perpustakaan_sekolah')->get();
+        $keyword = $request->search;
 
-        return view(
-            'pemetaan.perpustakaan_sekolah',
-            compact('data')
-        );
+        $data = DB::table('perpustakaan_sekolah')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('nama_perpustakaan', 'like', "%{$keyword}%");
+            })
+            ->get();
+
+        return view('pemetaan.perpustakaan_sekolah', compact(
+            'data',
+            'keyword'
+        ));
+    }
+
+    public function perpustakaanDesa()
+    {
+        $keyword = request()->search;
+
+        $data = DB::table('perpustakaan_desa')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('nama_perpustakaan', 'like', "%{$keyword}%");
+            })
+            ->get();
+
+        return view('pemetaan.perpustakaan_desa', compact(
+            'data',
+            'keyword'
+        ));
+    }
+
+    public function perpustakaanKhusus()
+    {
+        $keyword = request()->search;
+
+        $data = DB::table('perpustakaan_khusus')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('nama_perpustakaan', 'like', "%{$keyword}%");
+            })
+            ->get();
+
+        return view('pemetaan.perpustakaan_khusus', compact(
+            'data',
+            'keyword'
+        ));
+    }
+
+    public function perpustakaanKomunitas()
+    {
+        $keyword = request()->search;
+
+        $data = DB::table('perpustakaan_komunitas')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('nama_perpustakaan', 'like', "%{$keyword}%");
+            })
+            ->get();
+
+        return view('pemetaan.perpustakaan_komunitas', compact(
+            'data',
+            'keyword'
+        ));
     }
 }
