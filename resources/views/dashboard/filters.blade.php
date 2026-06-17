@@ -1,81 +1,110 @@
-<div class="bg-white rounded-3xl shadow-lg p-6">
+<div class="bg-white rounded-2xl shadow-sm border p-5 mt-6">
 
     <form method="GET">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid md:grid-cols-5 gap-4">
 
             {{-- Kabupaten --}}
-            <select
-                name="kabupaten"
-                onchange="this.form.submit()"
-                class="w-full px-4 py-3 border rounded-xl">
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-2">
+                    Kabupaten/Kota
+                </label>
 
-                <option value="">
-                    Semua Kabupaten
-                </option>
+                <select
+                    name="kabupaten"
+                    class="w-full border border-gray-200 rounded-lg px-4 py-2">
 
-                @foreach($kabupaten as $item)
-                    <option
-                        value="{{ $item->id_kabupaten }}"
-                        {{ request('kabupaten') == $item->id_kabupaten ? 'selected' : '' }}>
-
-                        {{ $item->nama_kabupaten }}
-
+                    <option value="">
+                        Semua Kabupaten/Kota
                     </option>
-                @endforeach
 
-            </select>
+                    @foreach($kabupaten as $item)
+                        <option
+                            value="{{ $item->id_kabupaten }}"
+                            {{ request('kabupaten') == $item->id_kabupaten ? 'selected' : '' }}>
+
+                            {{ $item->nama_kabupaten }}
+
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
 
             {{-- Jenis --}}
-            <select
-                name="jenis"
-                onchange="this.form.submit()"
-                class="w-full px-4 py-3 border rounded-xl">
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-2">
+                    Jenis Perpustakaan
+                </label>
 
-                <option value="">
-                    Semua Jenis
-                </option>
+                <select
+                    name="jenis"
+                    class="w-full border border-gray-200 rounded-lg px-4 py-2">
 
-                @foreach($jenis as $item)
-
-                    <option
-                        value="{{ $item->id_jenis }}"
-                        {{ request('jenis') == $item->id_jenis ? 'selected' : '' }}>
-
-                        {{ $item->nama_jenis }}
-
+                    <option value="">
+                        Semua Jenis
                     </option>
 
-                @endforeach
+                    @foreach($jenis as $item)
+                        <option
+                            value="{{ $item->id_jenis }}"
+                            {{ request('jenis') == $item->id_jenis ? 'selected' : '' }}>
 
-            </select>
+                            {{ $item->nama_jenis }}
+
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
 
             {{-- Akreditasi --}}
-            <select
-                name="akreditasi"
-                onchange="this.form.submit()"
-                class="w-full px-4 py-3 border rounded-xl">
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-2">
+                    Nilai Akreditasi
+                </label>
 
-                <option value="">
-                    Semua Akreditasi
-                </option>
+                <select
+                    name="akreditasi"
+                    class="w-full border border-gray-200 rounded-lg px-4 py-2">
 
-                <option value="A"
-                    {{ request('akreditasi') == 'A' ? 'selected' : '' }}>
-                    Akreditasi A
-                </option>
+                    <option value="">
+                        Semua Nilai
+                    </option>
 
-                <option value="B"
-                    {{ request('akreditasi') == 'B' ? 'selected' : '' }}>
-                    Akreditasi B
-                </option>
+                    <option value="A" {{ request('akreditasi')=='A'?'selected':'' }}>
+                        Akreditasi A
+                    </option>
 
-                <option value="C"
-                    {{ request('akreditasi') == 'C' ? 'selected' : '' }}>
-                    Akreditasi C
-                </option>
+                    <option value="B" {{ request('akreditasi')=='B'?'selected':'' }}>
+                        Akreditasi B
+                    </option>
 
-            </select>
+                    <option value="C" {{ request('akreditasi')=='C'?'selected':'' }}>
+                        Akreditasi C
+                    </option>
+
+                </select>
+            </div>
+
+            {{-- Tombol --}}
+            <div class="flex items-end">
+                <button
+                    type="submit"
+                    class="w-full bg-cyan-800 hover:bg-cyan-700 text-white rounded-lg py-2.5">
+
+                    Terapkan Filter
+                </button>
+            </div>
+
+            <div class="flex items-end">
+                <a
+                    href="{{ url()->current() }}"
+                    class="w-full border border-gray-300 text-center rounded-lg py-2.5 hover:bg-gray-50">
+
+                    Reset
+                </a>
+            </div>
 
         </div>
 

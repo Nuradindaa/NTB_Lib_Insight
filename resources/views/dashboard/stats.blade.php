@@ -1,105 +1,51 @@
-{{-- BARIS 1 --}}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
 
-    {{-- Total Perpustakaan --}}
-    <div class="bg-white rounded-3xl p-6 shadow-lg">
-        <div class="flex justify-between">
-            <div>
-                <p class="text-gray-500">
-                    Total Perpustakaan
-                </p>
-
-                <h2 class="text-5xl font-bold mt-2">
-                    {{ number_format($total) }}
-                </h2>
-            </div>
-
-            <div class="w-14 h-14 rounded-2xl bg-cyan-100 flex items-center justify-center text-2xl">
-                🏢
-            </div>
-        </div>
+    <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-gray-500 text-sm">Total</p>
+        <h3 class="text-3xl font-bold">
+            {{ number_format($total) }}
+        </h3>
+        <p class="text-xs text-gray-400">Perpustakaan</p>
     </div>
 
-    {{-- Terakreditasi --}}
-    <div class="bg-white rounded-3xl p-6 shadow-lg">
-        <div class="flex justify-between">
-            <div>
-                <p class="text-gray-500">
-                    Terakreditasi
-                </p>
-
-                <h2 class="text-5xl font-bold text-green-600 mt-2">
-                    {{ number_format($totalAkreditasi) }}
-                </h2>
-            </div>
-
-            <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center text-2xl">
-                ✔
-            </div>
-        </div>
+    <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-gray-500 text-sm">Terakreditasi</p>
+        <h3 class="text-3xl font-bold text-green-600">
+            {{ $totalAkreditasi }}
+        </h3>
+        <p class="text-xs text-gray-400">Institusi</p>
     </div>
 
-</div>
-
-{{-- BARIS 2 --}}
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-
-    {{-- Akreditasi A --}}
-    <div class="bg-white rounded-3xl p-6 shadow-lg">
-        <div class="flex justify-between">
-            <div>
-                <p class="text-gray-500">
-                    Akreditasi A
-                </p>
-
-                <h2 class="text-5xl font-bold text-blue-600 mt-2">
-                    {{ $akreditasiA }}
-                </h2>
-            </div>
-
-            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center text-2xl">
-                📄
-            </div>
-        </div>
+    <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-gray-500 text-sm">Akreditasi A</p>
+        <h3 class="text-3xl font-bold text-blue-600">
+            {{ $akreditasiA }}
+        </h3>
+        <p class="text-xs text-gray-400">Unggul</p>
     </div>
 
-    {{-- Akreditasi B --}}
-    <div class="bg-white rounded-3xl p-6 shadow-lg">
-        <div class="flex justify-between">
-            <div>
-                <p class="text-gray-500">
-                    Akreditasi B
-                </p>
-
-                <h2 class="text-5xl font-bold text-green-600 mt-2">
-                    {{ $akreditasiB }}
-                </h2>
-            </div>
-
-            <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center text-2xl">
-                🏅
-            </div>
-        </div>
+    <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-gray-500 text-sm">Akreditasi B</p>
+        <h3 class="text-3xl font-bold text-cyan-700">
+            {{ $akreditasiB }}
+        </h3>
+        <p class="text-xs text-gray-400">Baik Sekali</p>
     </div>
 
-    {{-- Akreditasi C --}}
-    <div class="bg-white rounded-3xl p-6 shadow-lg">
-        <div class="flex justify-between">
-            <div>
-                <p class="text-gray-500">
-                    Akreditasi C
-                </p>
-
-                <h2 class="text-5xl font-bold text-orange-500 mt-2">
-                    {{ $akreditasiC }}
-                </h2>
-            </div>
-
-            <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center text-2xl">
-                📚
-            </div>
-        </div>
+    <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-gray-500 text-sm">Akreditasi C</p>
+        <h3 class="text-3xl font-bold text-orange-500">
+            {{ $akreditasiC }}
+        </h3>
+        <p class="text-xs text-gray-400">Baik</p>
     </div>
-    
+
+    <div class="bg-white rounded-xl shadow p-5">
+        <p class="text-gray-500 text-sm">Reakreditasi</p>
+        <h3 class="text-3xl font-bold text-red-500">
+            {{ $expired }}
+        </h3>
+        <p class="text-xs text-gray-400">Tahun Depan</p>
+    </div>
 
 </div>

@@ -17,7 +17,8 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-cyan-900 to-cyan-700 min-h-screen">
+
+<body class="bg-slate-100 min-h-screen">
     @yield('content')
 </body>
 </html>

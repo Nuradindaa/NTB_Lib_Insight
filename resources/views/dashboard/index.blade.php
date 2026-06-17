@@ -4,7 +4,32 @@
 
 @include('components.navbar')
 
-<div class="max-w-7xl mx-auto px-6 py-6">
+<div class="max-w-7xl mx-auto px-6 py-8">
+
+    <div class="flex justify-between items-start mb-8">
+
+        <div>
+            <p class="text-sm text-gray-500 mb-2">
+                Home > Akreditasi
+            </p>
+
+            <h1 class="text-4xl font-bold text-slate-800">
+                Dashboard Akreditasi Perpustakaan NTB
+            </h1>
+
+            <p class="text-gray-500 mt-2">
+                Monitoring status akreditasi perpustakaan di Provinsi Nusa Tenggara Barat
+            </p>
+        </div>
+
+        <button
+            class="bg-cyan-800 hover:bg-cyan-700 text-white px-6 py-3 rounded-xl shadow">
+
+            ⬇ Export Data
+
+        </button>
+
+    </div>
 
     {{-- STATISTIK --}}
     @include('dashboard.stats')
@@ -15,11 +40,9 @@
     </div>
     
     {{-- GRAFIK --}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+    <div class="mt-8">
 
         @include('dashboard.chart')
-
-        @include('dashboard.chart-kabupaten')
 
     </div>
 

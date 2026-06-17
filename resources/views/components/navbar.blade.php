@@ -1,15 +1,16 @@
-<header class="bg-white/95 backdrop-blur-lg shadow-sm sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 py-4">
+<header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+
         <div class="flex items-center justify-between">
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
 
-                <div class="w-12 h-12 rounded-xl bg-cyan-800 flex items-center justify-center">
+                <div class="w-12 h-12 bg-cyan-800 rounded-xl flex items-center justify-center text-white">
                     📚
                 </div>
 
                 <div>
-                    <h1 class="text-xl font-bold text-gray-800">
+                    <h1 class="font-bold text-xl text-slate-800">
                         NTB Lib-Insights
                     </h1>
 
@@ -20,25 +21,35 @@
 
             </div>
 
-            <div class="flex items-center gap-3">
+            <nav class="hidden md:flex gap-8 text-sm font-medium">
+
+                <a href="/" class="text-cyan-700">
+                    Home
+                </a>
+
+                <a href="/dashboard-akreditasi">
+                    Accreditation
+                </a>
+
+                <a href="/dashboard-pemetaan">
+                    Mapping
+                </a>
+
+                <a href="#tentang">
+                    About
+                </a>
+
+            </nav>
+
+            <div>
 
                 @auth
-
-                    <span
-                        class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
-
-                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
-
-                        {{ Auth::user()->name }}
-
-                    </span>
 
                     <form action="/logout" method="POST">
                         @csrf
 
                         <button
-                            type="submit"
-                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl">
+                            class="px-5 py-2 rounded-xl bg-red-500 text-white">
                             Keluar
                         </button>
                     </form>
@@ -49,8 +60,8 @@
 
                     <a
                         href="/login"
-                        class="px-4 py-2 bg-cyan-700 text-white rounded-xl hover:bg-cyan-800">
-                        Masuk Admin
+                        class="px-5 py-2 rounded-xl bg-cyan-700 text-white">
+                        Login / Register
                     </a>
 
                 @endguest
@@ -58,5 +69,6 @@
             </div>
 
         </div>
+
     </div>
 </header>
