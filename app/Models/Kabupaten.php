@@ -11,4 +11,13 @@ class Kabupaten extends Model
     protected $primaryKey = 'id_kabupaten';
 
     public $timestamps = false;
+
+    public function perpustakaanSekolah()
+{
+    return $this->hasMany(
+        PerpustakaanSekolah::class,
+        'id_kabupaten',
+        'id_kabupaten'
+    );
+}
 }

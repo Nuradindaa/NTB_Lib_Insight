@@ -22,13 +22,6 @@
             </p>
         </div>
 
-        <button
-            class="bg-cyan-800 hover:bg-cyan-700 text-white px-6 py-3 rounded-xl shadow">
-
-            ⬇ Export Data
-
-        </button>
-
     </div>
 
     {{-- STATISTIK --}}

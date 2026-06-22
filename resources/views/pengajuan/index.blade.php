@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layout')
 
 @section('content')
 
@@ -44,7 +44,7 @@
                     </td>
 
                     <td class="p-4">
-                        {{ $item->id_kabupaten }}
+                        {{ $item->kabupaten->nama_kabupaten ?? '-' }}
                     </td>
 
                     <td class="p-4">
@@ -71,20 +71,52 @@
 
                     </td>
 
-                    <td class="p-4 text-center">
+                <td class="p-4 text-center">
 
-                        <button
-                            class="bg-green-600 text-white px-4 py-2 rounded-lg">
-                            Setujui
-                        </button>
+                    @if($item->status == 'pending')
 
-                        <button
-                            class="bg-red-600 text-white px-4 py-2 rounded-lg">
-                            Tolak
-                        </button>
+                        <form
+                            action="{{ route('pengajuan.approve', $item->id) }}"
+                            method="POST"
+                            class="inline">
 
-                    </td>
+                            @csrf
 
+                            <button
+                                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+
+                                Setujui
+
+                            </button>
+
+                        </form>
+
+                        <form
+                            action="{{ route('pengajuan.tolak', $item->id) }}"
+                            method="POST"
+                            class="inline">
+
+                            @csrf
+
+                            <button
+                                type="submit"
+                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl">
+
+                                Tolak
+
+                            </button>
+
+                        </form>
+
+                    @else
+
+                    <span class="text-gray-400 italic">
+                        Selesai
+                    </span>
+
+                    @endif
+
+                </td>
                 </tr>
 
                 @endforeach

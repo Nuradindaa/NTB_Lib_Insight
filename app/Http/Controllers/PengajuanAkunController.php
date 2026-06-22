@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Models\PengajuanAkun;
 use App\Models\Kabupaten;
 use App\Models\JenisPerpustakaan;
@@ -50,4 +52,39 @@ class PengajuanAkunController extends Controller
             compact('pengajuan')
             );
         }
+
+    public function approve($id)
+    {
+    $pengajuan = PengajuanAkun::findOrFail($id);
+
+    User::create([
+        'name'     => $pengajuan->nama_pengelola,
+        'email'    => $pengajuan->email,
+        'password' => Hash::make('password123'),
+        'role'     => 'perpus'
+    ]);
+
+    $pengajuan->update([
+        'status' => 'approved'
+    ]);
+
+    return back()->with(
+        'success',
+        'Pengajuan berhasil disetujui.'
+    );
+    }
+
+    public function tolak($id)
+    {
+        $pengajuan = PengajuanAkun::findOrFail($id);
+
+        $pengajuan->update([
+            'status' => 'rejected'
+        ]);
+
+        return back()->with(
+            'success',
+            'Pengajuan berhasil ditolak'
+        );
+    }
 }

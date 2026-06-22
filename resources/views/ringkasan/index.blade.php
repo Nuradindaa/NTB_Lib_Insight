@@ -5,9 +5,10 @@
 @include('components.navbar')
 <section class="relative h-[650px] flex items-center justify-center text-center">
 
-    <img
-        src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da"
-        class="absolute inset-0 w-full h-full object-cover">
+   <img
+    src="{{ asset('assets/Perpus_NTB.png') }}"
+    alt="Perpustakaan NTB"
+    class="absolute inset-0 w-full h-full object-cover">
 
     <div class="absolute inset-0 bg-cyan-900/70"></div>
 
@@ -236,7 +237,7 @@
             <div class="flex justify-center">
 
                 <img
-                    src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800"
+                    src="{{ asset('assets/layanan.png') }}"
                     alt="Perpustakaan"
                     class="rounded-2xl h-56 w-full object-cover"
                 >
@@ -313,7 +314,7 @@
             <div>
 
                 <img
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200"
+                    src="{{ asset('assets/tamu.png') }}"
                     alt="Dashboard"
                     class="rounded-3xl shadow-2xl w-full h-[500px] object-cover"
                 >

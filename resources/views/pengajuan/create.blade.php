@@ -8,7 +8,7 @@
 <div
     class="hidden lg:flex lg:col-span-2 relative items-center"
     style="
-        background-image:url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da');
+        background-image: url('{{ asset('assets/Perpus_NTB.png') }}');
         background-size:cover;
         background-position:center;
     ">
