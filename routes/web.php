@@ -179,6 +179,26 @@ Route::get('/reakreditasi/berlaku', [DashboardController::class, 'berlaku'])
     ->name('reakreditasi.berlaku');
 
 /*
+| Dashboard Admin Perpustakaan
+*/
+
+Route::middleware(['auth'])
+    ->prefix('pengelola')
+    ->group(function () {
+
+        Route::get(
+            '/dashboard',
+            [\App\Http\Controllers\Pengelola\DashboardController::class, 'index']
+        )->name('pengelola.dashboard');
+
+    });
+
+Route::get(
+    '/search-perpustakaan',
+    [PengajuanAkunController::class, 'searchPerpustakaan']
+);
+
+/*
 | Dashboard Pemetaan
 */
 

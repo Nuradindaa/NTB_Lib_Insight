@@ -83,9 +83,19 @@
 
                 <input
                     type="text"
-                    name="nama_perpustakaan"
+                    id="cari_perpustakaan"
                     class="w-full border rounded-xl p-3"
-                    placeholder="Masukkan nama perpustakaan">
+                    placeholder="Ketik nama perpustakaan...">
+
+                <input
+                    type="hidden"
+                    name="perpustakaan_id"
+                    id="perpustakaan_id">
+
+                <div
+                    id="hasil_perpustakaan"
+                    class="border rounded-lg mt-1 bg-white hidden">
+                </div>
 
             </div>
 
@@ -98,6 +108,7 @@
                     </label>
 
                     <select
+                        id="id_jenis"
                         name="id_jenis"
                         class="w-full border rounded-xl p-3">
 
@@ -120,6 +131,7 @@
                     </label>
 
                     <select
+                        id="id_kabupaten"
                         name="id_kabupaten"
                         class="w-full border rounded-xl p-3">
 
@@ -229,5 +241,56 @@
 </div>
 
 </div>
+
+<script>
+
+function loadPerpustakaan()
+{
+    let jenis =
+        document.getElementById('id_jenis').value;
+
+    let kabupaten =
+        document.getElementById('id_kabupaten').value;
+
+    if (!jenis || !kabupaten) return;
+
+    fetch(
+        '/search-perpustakaan?keyword=' +
+        keyword +
+        '&jenis=' +
+        document.getElementById('id_jenis').value
+    )
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        let perpustakaan =
+            document.getElementById('perpustakaan');
+
+        perpustakaan.innerHTML =
+            '<option value="">Pilih Perpustakaan</option>';
+
+        data.forEach(item => {
+
+            perpustakaan.innerHTML += `
+                <option value="${item.id}">
+                    ${item.nama_perpustakaan}
+                </option>
+            `;
+        });
+
+    });
+}
+
+document
+.getElementById('id_jenis')
+.addEventListener('change', loadPerpustakaan);
+
+document
+.getElementById('id_kabupaten')
+.addEventListener('change', loadPerpustakaan);
+
+</script>
 
 @endsection

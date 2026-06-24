@@ -8,6 +8,10 @@ use App\Models\PengajuanAkun;
 use App\Models\Kabupaten;
 use App\Models\JenisPerpustakaan;
 use Illuminate\Http\Request;
+use App\Models\PerpustakaanDesa;
+use App\Models\PerpustakaanKomunitas;
+use App\Models\PerpustakaanSekolah;
+use App\Models\PerpustakaanKhusus;
 
 class PengajuanAkunController extends Controller
 {
@@ -23,10 +27,37 @@ class PengajuanAkunController extends Controller
         );
     }
 
+    public function getPerpustakaan($jenis, $kabupaten)
+    {
+        if ($jenis == 2) {
+
+            return PerpustakaanSekolah::where(
+                'id_kabupaten',
+                $kabupaten
+            )
+            ->select('id', 'nama_perpustakaan')
+            ->orderBy('nama_perpustakaan')
+            ->get();
+        }
+
+        if ($jenis == 3) {
+
+            return PerpustakaanKhusus::where(
+                'id_kabupaten',
+                $kabupaten
+            )
+            ->select('id', 'nama_perpustakaan')
+            ->orderBy('nama_perpustakaan')
+            ->get();
+        }
+
+        return [];
+    }
+
     public function store(Request $request)
     {
         PengajuanAkun::create([
-            'nama_perpustakaan' => $request->nama_perpustakaan,
+            'perpustakaan_id'   => $request->perpustakaan_id,
             'id_jenis'          => $request->id_jenis,
             'id_kabupaten'      => $request->id_kabupaten,
             'nama_pengelola'    => $request->nama_pengelola,
@@ -86,5 +117,71 @@ class PengajuanAkunController extends Controller
             'success',
             'Pengajuan berhasil ditolak'
         );
+    }
+
+   public function searchPerpustakaan(Request $request)
+    {
+        $keyword = $request->keyword;
+        $jenis = $request->jenis;
+
+        // UMUM
+        if ($jenis == 1) {
+
+            $desa = PerpustakaanDesa::where(
+                'nama_perpustakaan',
+                'like',
+                "%{$keyword}%"
+            )
+            ->limit(5)
+            ->get([
+                'id',
+                'nama_perpustakaan'
+            ]);
+
+            $komunitas = PerpustakaanKomunitas::where(
+                'nama_perpustakaan',
+                'like',
+                "%{$keyword}%"
+            )
+            ->limit(5)
+            ->get([
+                'id',
+                'nama_perpustakaan'
+            ]);
+
+            return $desa->merge($komunitas);
+        }
+
+        // SEKOLAH
+        if ($jenis == 2) {
+
+            return PerpustakaanSekolah::where(
+                'nama_perpustakaan',
+                'like',
+                "%{$keyword}%"
+            )
+            ->limit(10)
+            ->get([
+                'id',
+                'nama_perpustakaan'
+            ]);
+        }
+
+        // KHUSUS
+        if ($jenis == 3) {
+
+            return PerpustakaanKhusus::where(
+                'nama_perpustakaan',
+                'like',
+                "%{$keyword}%"
+            )
+            ->limit(10)
+            ->get([
+                'id',
+                'nama_perpustakaan'
+            ]);
+        }
+
+        return [];
     }
 }
