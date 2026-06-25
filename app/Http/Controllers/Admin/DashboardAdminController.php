@@ -33,20 +33,15 @@ public function index()
         ->take(5)
         ->get();
 
-    $akunAktif = PengajuanAkun::where(
-    'status',
-    'approved'
-        )
-        ->where(
-            'status_akun',
-            'aktif'
-        )
-        ->count();
+    $akunAktif = User::where(
+        'role',
+        'perpus'
+    )->count();
 
     $adminPerpus = User::where(
-    'role',
-    'admin_perpus'
-        )->count();
+        'role',
+        'perpus'
+    )->count();
 
     $aktivitas = Aktivitas::latest()
         ->take(5)

@@ -24,7 +24,7 @@ class PengajuanAkreditasiController extends Controller
 
     $akreditasi = $query->paginate(20);
 
-    $pengajuan = PengajuanAkreditasi::latest()->get();
+    $pengajuan = PengajuanAkreditasi::with('user')->latest()->get();
 
     $pending = PengajuanAkreditasi::where('status', 'pending')->count();
 

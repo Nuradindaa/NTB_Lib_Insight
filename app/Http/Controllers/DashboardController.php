@@ -291,10 +291,18 @@ class DashboardController extends Controller
         $keyword = $request->search;
 
         $data = DB::table('perpustakaan_sekolah')
+            ->leftJoin('kecamatan', 'perpustakaan_sekolah.id_kecamatan', '=', 'kecamatan.id_kecamatan')
+            ->leftJoin('kelurahan', 'perpustakaan_sekolah.id_kelurahan', '=', 'kelurahan.id_kelurahan')
+            ->select(
+                'perpustakaan_sekolah.*',
+                'kecamatan.nama_kecamatan',
+                'kelurahan.nama_kelurahan'
+            )
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('nama_perpustakaan', 'like', "%{$keyword}%");
             })
-            ->get();
+            ->paginate(20)
+            ->withQueryString();
 
         return view('pemetaan.perpustakaan_sekolah', compact(
             'data',
@@ -307,11 +315,19 @@ class DashboardController extends Controller
         $keyword = request()->search;
 
         $data = DB::table('perpustakaan_desa')
+            ->leftJoin('kecamatan', 'perpustakaan_desa.id_kecamatan', '=', 'kecamatan.id_kecamatan')
+            ->leftJoin('kelurahan', 'perpustakaan_desa.id_kelurahan', '=', 'kelurahan.id_kelurahan')
+            ->select(
+                'perpustakaan_desa.*',
+                'kecamatan.nama_kecamatan',
+                'kelurahan.nama_kelurahan'
+            )
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('nama_perpustakaan', 'like', "%{$keyword}%");
             })
-            ->get();
-
+            ->paginate(20)
+            ->withQueryString();
+            
         return view('pemetaan.perpustakaan_desa', compact(
             'data',
             'keyword'
@@ -323,10 +339,18 @@ class DashboardController extends Controller
         $keyword = request()->search;
 
         $data = DB::table('perpustakaan_khusus')
+            ->leftJoin('kecamatan', 'perpustakaan_khusus.id_kecamatan', '=', 'kecamatan.id_kecamatan')
+            ->leftJoin('kelurahan', 'perpustakaan_khusus.id_kelurahan', '=', 'kelurahan.id_kelurahan')
+            ->select(
+                'perpustakaan_khusus.*',
+                'kecamatan.nama_kecamatan',
+                'kelurahan.nama_kelurahan'
+            )
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('nama_perpustakaan', 'like', "%{$keyword}%");
             })
-            ->get();
+            ->paginate(20)
+            ->withQueryString();
 
         return view('pemetaan.perpustakaan_khusus', compact(
             'data',
@@ -339,11 +363,19 @@ class DashboardController extends Controller
         $keyword = request()->search;
 
         $data = DB::table('perpustakaan_komunitas')
+            ->leftJoin('kecamatan', 'perpustakaan_komunitas.id_kecamatan', '=', 'kecamatan.id_kecamatan')
+            ->leftJoin('kelurahan', 'perpustakaan_komunitas.id_kelurahan', '=', 'kelurahan.id_kelurahan')
+            ->select(
+                'perpustakaan_komunitas.*',
+                'kecamatan.nama_kecamatan',
+                'kelurahan.nama_kelurahan'
+            )
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('nama_perpustakaan', 'like', "%{$keyword}%");
             })
-            ->get();
-
+            ->paginate(20)
+            ->withQueryString();
+            
         return view('pemetaan.perpustakaan_komunitas', compact(
             'data',
             'keyword'

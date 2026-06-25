@@ -17,91 +17,72 @@ use App\Models\PengajuanAkun;
 class PerpustakaanController extends Controller
 {
     public function index(Request $request)
-{
-    $keyword = $request->keyword;
-    $kabupaten = $request->kabupaten;
-    $jenis = $request->jenis;
+    {
+        $keyword = $request->keyword;
+        $kabupaten = $request->kabupaten;
+        $jenis = $request->jenis;
 
-    $sekolah = PerpustakaanSekolah::with('kabupaten')
-        ->get()
-        ->map(function ($item) {
+        $querySekolah = PerpustakaanSekolah::with('kabupaten');
+        $queryDesa = PerpustakaanDesa::with('kabupaten');
+        $queryKhusus = PerpustakaanKhusus::with('kabupaten');
+        $queryKomunitas = PerpustakaanKomunitas::with('kabupaten');
+
+        if ($kabupaten) {
+            $querySekolah->where('id_kabupaten', $kabupaten);
+            $queryDesa->where('id_kabupaten', $kabupaten);
+            $queryKhusus->where('id_kabupaten', $kabupaten);
+            $queryKomunitas->where('id_kabupaten', $kabupaten);
+        }
+
+        if ($keyword) {
+            $querySekolah->where('nama_perpustakaan', 'like', "%{$keyword}%");
+            $queryDesa->where('nama_perpustakaan', 'like', "%{$keyword}%");
+            $queryKhusus->where('nama_perpustakaan', 'like', "%{$keyword}%");
+            $queryKomunitas->where('nama_perpustakaan', 'like', "%{$keyword}%");
+        }
+
+        $sekolah = $querySekolah->get()->map(function ($item) {
             $item->jenis_tampilan = 'Sekolah';
             $item->jenis_asli = 'sekolah';
             $item->jenis_url = 'sekolah';
             return $item;
         });
 
-    $desa = PerpustakaanDesa::with('kabupaten')
-        ->get()
-        ->map(function ($item) {
+        $desa = $queryDesa->get()->map(function ($item) {
             $item->jenis_tampilan = 'Desa/Kelurahan';
             $item->jenis_asli = 'desa';
             $item->jenis_url = 'desa';
             return $item;
         });
 
-    $khusus = PerpustakaanKhusus::with('kabupaten')
-        ->get()
-        ->map(function ($item) {
+        $khusus = $queryKhusus->get()->map(function ($item) {
             $item->jenis_tampilan = 'Khusus';
             $item->jenis_asli = 'khusus';
             $item->jenis_url = 'khusus';
             return $item;
         });
 
-    $komunitas = PerpustakaanKomunitas::with('kabupaten')
-        ->get()
-        ->map(function ($item) {
+        $komunitas = $queryKomunitas->get()->map(function ($item) {
             $item->jenis_tampilan = 'Komunitas';
             $item->jenis_asli = 'komunitas';
             $item->jenis_url = 'komunitas';
             return $item;
         });
 
-    $data = collect()
-        ->merge($sekolah)
-        ->merge($desa)
-        ->merge($khusus)
-        ->merge($komunitas);
-    
-    if ($keyword) {
+        $data = collect()
+            ->merge($sekolah)
+            ->merge($desa)
+            ->merge($khusus)
+            ->merge($komunitas);
 
-    $data = $data->filter(function ($item) use ($keyword) {
+        if ($jenis) {
+            $data = $data->where('jenis_url', $jenis);
+        }
 
-        return str_contains(
-            strtolower($item->nama_perpustakaan),
-            strtolower($keyword)
-        );
+        $daftarKabupaten = Kabupaten::all();
 
-    });
-
+        return view('admin.perpustakaan.index', compact('data', 'daftarKabupaten'));
     }
-
-    if ($kabupaten) {
-
-        $data = $data->where(
-            'id_kabupaten',
-            $kabupaten
-        );
-
-    }
-    if ($jenis) {
-
-        $data = $data->where(
-            'jenis_url',
-            $jenis
-        );
-
-    }
-    $daftarKabupaten = Kabupaten::all();
-    return view(
-        'admin.perpustakaan.index',
-        compact(
-            'data',
-            'daftarKabupaten'
-        )
-    );
-}
 
     public function detail($jenis, $id)
     {

@@ -12,5 +12,14 @@ class AkreditasiPerpustakaan extends Model
 
     public $timestamps = false;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'id_kabupaten',
+        'id_jenis',
+        'nama_perpustakaan',
+        'nilai_akreditasi',
+        'tahun_terbit',
+        'jangka_waktu',
+        'tahun_berakhir',
+        'status',
+    ];
 }

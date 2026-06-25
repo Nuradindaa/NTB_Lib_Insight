@@ -8,6 +8,7 @@ use App\Models\PengajuanAkun;
 use App\Models\Kabupaten;
 use App\Models\JenisPerpustakaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\PerpustakaanDesa;
 use App\Models\PerpustakaanKomunitas;
 use App\Models\PerpustakaanSekolah;
@@ -29,13 +30,32 @@ class PengajuanAkunController extends Controller
 
     public function getPerpustakaan($jenis, $kabupaten)
     {
+        if ($jenis == 1) {
+
+            $desa = PerpustakaanDesa::where(
+                'id_kabupaten',
+                $kabupaten
+            )
+            ->select('id','nama_perpustakaan')
+            ->get();
+
+            $komunitas = PerpustakaanKomunitas::where(
+                'id_kabupaten',
+                $kabupaten
+            )
+            ->select('id','nama_perpustakaan')
+            ->get();
+
+            return $desa->merge($komunitas);
+        }
+
         if ($jenis == 2) {
 
             return PerpustakaanSekolah::where(
                 'id_kabupaten',
                 $kabupaten
             )
-            ->select('id', 'nama_perpustakaan')
+            ->select('id','nama_perpustakaan')
             ->orderBy('nama_perpustakaan')
             ->get();
         }
@@ -46,7 +66,7 @@ class PengajuanAkunController extends Controller
                 'id_kabupaten',
                 $kabupaten
             )
-            ->select('id', 'nama_perpustakaan')
+            ->select('id','nama_perpustakaan')
             ->orderBy('nama_perpustakaan')
             ->get();
         }
@@ -56,6 +76,17 @@ class PengajuanAkunController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'perpustakaan_id' => 'required|integer',
+            'id_jenis'        => 'required|integer',
+            'id_kabupaten'    => 'required|integer',
+            'nama_pengelola'  => 'required',
+            'email'           => 'required|email',
+            'no_hp'           => 'required',
+            'alasan'          => 'required',
+        ]);
+
         PengajuanAkun::create([
             'perpustakaan_id'   => $request->perpustakaan_id,
             'id_jenis'          => $request->id_jenis,
@@ -86,23 +117,39 @@ class PengajuanAkunController extends Controller
 
     public function approve($id)
     {
-    $pengajuan = PengajuanAkun::findOrFail($id);
+        $pengajuan = PengajuanAkun::findOrFail($id);
 
-    User::create([
-        'name'     => $pengajuan->nama_pengelola,
-        'email'    => $pengajuan->email,
-        'password' => Hash::make('password123'),
-        'role'     => 'perpus'
-    ]);
+        // Hindari membuat user dua kali
+        if (User::where('email', $pengajuan->email)->exists()) {
 
-    $pengajuan->update([
-        'status' => 'approved'
-    ]);
+            return back()->with(
+                'error',
+                'Email sudah terdaftar sebagai user.'
+            );
+        }
 
-    return back()->with(
-        'success',
-        'Pengajuan berhasil disetujui.'
-    );
+        // Ambil nama jenis perpustakaan
+        $jenis = JenisPerpustakaan::find($pengajuan->id_jenis);
+
+        $password = Str::password(12);
+
+        User::create([
+            'name' => $pengajuan->nama_pengelola,
+            'email' => $pengajuan->email,
+            'password' => Hash::make($password),
+            'role' => 'perpus',
+            'perpustakaan_id' => $pengajuan->perpustakaan_id,
+            'jenis_perpustakaan' => $jenis->nama_jenis,
+        ]);
+
+        $pengajuan->update([
+            'status' => 'approved'
+        ]);
+
+        return back()->with(
+            'success',
+            'Pengajuan berhasil disetujui.'
+        );
     }
 
     public function tolak($id)

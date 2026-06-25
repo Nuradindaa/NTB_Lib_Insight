@@ -19,6 +19,10 @@
 </head>
 
 <body class="bg-slate-100 min-h-screen">
+
     @yield('content')
+
+    @stack('scripts')
+
 </body>
 </html>

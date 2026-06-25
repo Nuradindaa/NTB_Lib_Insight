@@ -37,6 +37,14 @@
 
         </a>
 
+        <a href="/admin/perbarui-akreditasi"
+        class="block px-4 py-3 rounded-xl
+        {{ request()->is('admin/perbarui-akreditasi*') ? 'bg-cyan-900 text-white' : 'hover:bg-cyan-900' }}">
+
+            Akreditasi
+
+        </a>
+
         <a href="{{ route('admin.user-perpustakaan') }}"
         class="block px-4 py-3 rounded-xl
         {{ request()->is('admin/user-perpustakaan*') ? 'bg-cyan-900 text-white' : 'hover:bg-cyan-900' }}">

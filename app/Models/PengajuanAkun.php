@@ -9,7 +9,19 @@ class PengajuanAkun extends Model
 {
     protected $table = 'pengajuan_akun';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'perpustakaan_id',
+        'id_jenis',
+        'id_kabupaten',
+        'nama_perpustakaan',
+        'nama_pengelola',
+        'email',
+        'no_hp',
+        'alasan',
+        'status',
+        'status_akun',
+        'jenis_perpustakaan',
+    ];
 
     public function kabupaten()
     {

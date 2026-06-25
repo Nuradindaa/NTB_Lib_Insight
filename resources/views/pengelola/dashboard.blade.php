@@ -5,42 +5,32 @@
 <div class="max-w-7xl mx-auto p-6">
 
     <h1 class="text-3xl font-bold mb-6">
-        Dashboard Pengelola Perpustakaan
+        Dashboard Admin Perpustakaan
     </h1>
 
-    @if($perpustakaan)
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
-    <div class="bg-white rounded-xl shadow p-6">
+        <div class="bg-white shadow rounded-xl p-5">
+            <h3 class="text-gray-500">Status Akreditasi</h3>
+            <p class="text-2xl font-bold text-green-600">B</p>
+        </div>
 
-        <h2 class="text-2xl font-bold text-blue-700">
-            {{ $perpustakaan->nama_perpustakaan }}
-        </h2>
+        <div class="bg-white shadow rounded-xl p-5">
+            <h3 class="text-gray-500">Jumlah SDM</h3>
+            <p class="text-2xl font-bold">12</p>
+        </div>
 
-        <div class="mt-4 space-y-2">
+        <div class="bg-white shadow rounded-xl p-5">
+            <h3 class="text-gray-500">Sarana Prasarana</h3>
+            <p class="text-2xl font-bold">8</p>
+        </div>
 
-            <p>
-                <strong>Nomor Pokok:</strong>
-                {{ $perpustakaan->nomor_pokok }}
-            </p>
-
-            <p>
-                <strong>Alamat:</strong>
-                {{ $perpustakaan->alamat }}
-            </p>
-
+        <div class="bg-white shadow rounded-xl p-5">
+            <h3 class="text-gray-500">Pengajuan</h3>
+            <p class="text-2xl font-bold">3</p>
         </div>
 
     </div>
-
-    @else
-
-    <div class="bg-red-100 border border-red-300 text-red-700 p-4 rounded-lg">
-
-        Data perpustakaan belum terhubung.
-
-    </div>
-
-    @endif
 
 </div>
 

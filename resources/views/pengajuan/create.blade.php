@@ -75,30 +75,6 @@
 
             @csrf
 
-            <div class="mb-4">
-
-                <label class="block mb-2 font-medium">
-                    Nama Perpustakaan
-                </label>
-
-                <input
-                    type="text"
-                    id="cari_perpustakaan"
-                    class="w-full border rounded-xl p-3"
-                    placeholder="Ketik nama perpustakaan...">
-
-                <input
-                    type="hidden"
-                    name="perpustakaan_id"
-                    id="perpustakaan_id">
-
-                <div
-                    id="hasil_perpustakaan"
-                    class="border rounded-lg mt-1 bg-white hidden">
-                </div>
-
-            </div>
-
             <div class="grid md:grid-cols-2 gap-4 mb-4">
 
                 <div>
@@ -110,9 +86,10 @@
                     <select
                         id="id_jenis"
                         name="id_jenis"
-                        class="w-full border rounded-xl p-3">
+                        class="w-full border rounded-xl p-3"
+                        required>
 
-                        <option>Pilih Jenis</option>
+                        <option value="">Pilih Jenis</option>
 
                         @foreach($jenis as $item)
                             <option value="{{ $item->id_jenis }}">
@@ -133,9 +110,10 @@
                     <select
                         id="id_kabupaten"
                         name="id_kabupaten"
-                        class="w-full border rounded-xl p-3">
+                        class="w-full border rounded-xl p-3"
+                        required>
 
-                        <option>Pilih Kabupaten</option>
+                        <option value="">Pilih Kabupaten</option>
 
                         @foreach($kabupaten as $item)
                             <option value="{{ $item->id_kabupaten }}">
@@ -145,6 +123,31 @@
 
                     </select>
 
+                </div>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="block mb-2 font-medium">
+                    Nama Perpustakaan
+                </label>
+
+                <select
+                    id="perpustakaan_id"
+                    name="perpustakaan_id"
+                    disabled
+                    class="w-full border rounded-xl p-3 bg-gray-100"
+                    required>
+
+                    <option value="">
+                        Pilih Jenis dan Kabupaten terlebih dahulu
+                    </option>
+
+                </select>
+
+                <div
+                    class="border rounded-lg mt-1 bg-white hidden">
                 </div>
 
             </div>
@@ -244,52 +247,56 @@
 
 <script>
 
-function loadPerpustakaan()
-{
-    let jenis =
-        document.getElementById('id_jenis').value;
+document.addEventListener('DOMContentLoaded', function () {
 
-    let kabupaten =
-        document.getElementById('id_kabupaten').value;
+    const jenis = document.getElementById('id_jenis');
+    const kabupaten = document.getElementById('id_kabupaten');
+    const perpustakaan = document.getElementById('perpustakaan_id');
 
-    if (!jenis || !kabupaten) return;
+    function loadPerpustakaan() {
 
-    fetch(
-        '/search-perpustakaan?keyword=' +
-        keyword +
-        '&jenis=' +
-        document.getElementById('id_jenis').value
-    )
+        if (jenis.value === "" || kabupaten.value === "") {
 
-    .then(response => response.json())
+            perpustakaan.disabled = true;
 
-    .then(data => {
+            perpustakaan.innerHTML =
+                '<option value="">Pilih Jenis dan Kabupaten terlebih dahulu</option>';
 
-        let perpustakaan =
-            document.getElementById('perpustakaan');
+            return;
+        }
 
-        perpustakaan.innerHTML =
-            '<option value="">Pilih Perpustakaan</option>';
+        fetch(`/get-perpustakaan/${jenis.value}/${kabupaten.value}`)
+        .then(response => response.json())
+        .then(data => {
 
-        data.forEach(item => {
+            perpustakaan.disabled = false;
 
-            perpustakaan.innerHTML += `
-                <option value="${item.id}">
-                    ${item.nama_perpustakaan}
-                </option>
-            `;
+            perpustakaan.innerHTML =
+                '<option value="">Pilih Perpustakaan</option>';
+
+            data.forEach(item => {
+
+                perpustakaan.innerHTML += `
+                    <option value="${item.id}">
+                        ${item.nama_perpustakaan}
+                    </option>
+                `;
+
+            });
+
+        })
+        .catch(error => {
+
+            console.error(error);
+
         });
 
-    });
-}
+    }
 
-document
-.getElementById('id_jenis')
-.addEventListener('change', loadPerpustakaan);
+    jenis.addEventListener('change', loadPerpustakaan);
+    kabupaten.addEventListener('change', loadPerpustakaan);
 
-document
-.getElementById('id_kabupaten')
-.addEventListener('change', loadPerpustakaan);
+});
 
 </script>
 

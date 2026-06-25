@@ -20,4 +20,9 @@ class PengajuanAkreditasi extends Model
         'keterangan',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

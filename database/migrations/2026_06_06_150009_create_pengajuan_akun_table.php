@@ -14,7 +14,9 @@ return new class extends Migration
 
             $table->string('nama_perpustakaan');
             $table->unsignedBigInteger('id_jenis')->nullable();
+            $table->foreign('id_jenis')->references('id_jenis')->on('jenis_perpustakaan')->nullOnDelete();
             $table->unsignedBigInteger('id_kabupaten')->nullable();
+            $table->foreign('id_kabupaten')->references('id_kabupaten')->on('kabupaten')->nullOnDelete();
 
             $table->string('nama_pengelola');
             $table->string('email');

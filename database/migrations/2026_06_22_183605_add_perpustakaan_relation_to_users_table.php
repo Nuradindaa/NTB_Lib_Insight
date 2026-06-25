@@ -9,23 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-{
-    Schema::table('users', function ($table) {
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
 
-        $table->unsignedBigInteger('perpustakaan_id')->nullable();
+            $table->unsignedBigInteger('perpustakaan_id')->nullable();
 
-        $table->string('jenis_perpustakaan')->nullable();
+            $table->string('jenis_perpustakaan')->nullable();
 
-    });
-}
-    /**
-     * Reverse the migrations.
-     */
+        });
+    }
+
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+
+            $table->dropColumn(['perpustakaan_id', 'jenis_perpustakaan']);
+
         });
     }
 };

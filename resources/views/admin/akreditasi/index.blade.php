@@ -76,7 +76,7 @@
             </td>
 
             <td class="p-4">
-                {{ $item->user_id }}
+                {{ $item->user?->name ?? $item->user_id }}
             </td>
 
             <td class="p-4 text-center">

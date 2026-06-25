@@ -9,9 +9,9 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('pengajuan_akun', function ($table) {
+        Schema::table('pengajuan_akun', function (Blueprint $table) {
 
             $table->unsignedBigInteger('perpustakaan_id')->nullable();
 
@@ -20,13 +20,12 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('pengajuan_akun', function (Blueprint $table) {
-            //
+
+            $table->dropColumn(['perpustakaan_id', 'jenis_perpustakaan']);
+
         });
     }
 };

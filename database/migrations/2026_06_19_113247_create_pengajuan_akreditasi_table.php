@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
 
-            $table->integer('id_akreditasi');
+            $table->unsignedBigInteger('id_akreditasi')->nullable();
+            $table->foreign('id_akreditasi')->references('id_akreditasi')->on('akreditasi_perpustakaan')->nullOnDelete();
 
             $table->string('nama_perpustakaan');
 
-            $table->string('akreditasi_lama');
+            $table->string('akreditasi_lama')->nullable();
 
             $table->string('akreditasi_baru');
 
@@ -28,7 +30,7 @@ return new class extends Migration
 
             $table->year('tahun_berakhir');
 
-            $table->string('dokumen_bukti');
+            $table->string('dokumen_bukti')->nullable();
 
             $table->text('keterangan')->nullable();
 
