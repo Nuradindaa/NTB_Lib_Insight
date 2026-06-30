@@ -4,7 +4,7 @@
 
     <meta charset="UTF-8">
 
-    <title>Admin Perpustakaan</title>
+    <title>NTB Lib Insight</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 

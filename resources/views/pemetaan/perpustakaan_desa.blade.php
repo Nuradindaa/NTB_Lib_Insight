@@ -53,7 +53,7 @@
 
     <div class="overflow-x-auto">
 
-    <table class="w-full">
+    <table class="w-full table-fixed">
 
         <thead class="bg-slate-800 text-white">
 
@@ -62,19 +62,19 @@
                     No
                 </th>
 
-                <th class="px-4 py-4 text-left">
+                <th class="w-80 px-4 py-4 text-left">
                     Nama Perpustakaan
                 </th>
 
-                <th class="px-4 py-4 text-left">
+                <th class="w-52 px-4 py-4 text-left">
                     Desa/Kelurahan
                 </th>
 
-                <th class="px-4 py-4 text-left">
+                <th class="w-44 px-4 py-4 text-left">
                     Kecamatan
                 </th>
 
-                <th class="px-4 py-4 text-left">
+                <th class="w-96 px-4 py-4 text-left">
                     Alamat
                 </th>
 
@@ -90,7 +90,7 @@
 
                 <td class="px-4 py-3">
                     <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
-                        {{ $index + 1 }}
+                        {{ $data->firstItem() + $index }}
                     </span>
                 </td>
 
@@ -106,7 +106,7 @@
                     {{ $item->nama_kecamatan ?? '-' }}
                 </td>
 
-                <td class="px-4 py-3">
+                <td class="px-4 py-3 break-words">
                     {{ $item->alamat ?? '-' }}
                 </td>
 
